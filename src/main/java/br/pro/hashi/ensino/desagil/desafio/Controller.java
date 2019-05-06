@@ -1,13 +1,12 @@
 package br.pro.hashi.ensino.desagil.desafio;
 
-import br.pro.hashi.ensino.desagil.desafio.model.CpuPlayer;
-import br.pro.hashi.ensino.desagil.desafio.model.HumanPlayer;
-import br.pro.hashi.ensino.desagil.desafio.model.Model;
+import br.pro.hashi.ensino.desagil.desafio.model.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.lang.annotation.Target;
 
 public class Controller implements KeyListener, ActionListener {
     private final Model model;
@@ -65,8 +64,37 @@ public class Controller implements KeyListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         CpuPlayer cpuPlayer = model.getCpuPlayer();
+        HumanPlayer humanPlayer = model.getHumanPlayer();
+        Element target = model.getTarget();
 
-        cpuPlayer.move();
+        int targetColumn = target.getCol();
+        int targetRow = target.getRow();
+
+        int humanColumn = humanPlayer.getCol();
+        int humanRow = humanPlayer.getRow();
+
+        int cpuColumn = cpuPlayer.getCol();
+        int cpuRow = cpuPlayer.getRow();
+
+        if (humanColumn == targetColumn){
+            if (humanRow == targetRow){
+                System.out.println("HUMAN PLAYER WINS");
+                model.setWinner(humanPlayer);
+            }
+        }
+
+        if (cpuColumn == targetColumn) {
+            if (cpuRow == targetRow){
+                System.out.println("CPU PLAYER WINS");
+                model.setWinner(cpuPlayer);
+            }
+        }
+
+        Player player = model.getWinner();
+
+        if (player == null){
+            cpuPlayer.move();
+        }
 
         view.repaint();
     }

@@ -1,6 +1,8 @@
 package br.pro.hashi.ensino.desagil.desafio;
 
+import br.pro.hashi.ensino.desagil.desafio.model.HumanPlayer;
 import br.pro.hashi.ensino.desagil.desafio.model.Model;
+import br.pro.hashi.ensino.desagil.desafio.model.Player;
 
 import javax.swing.*;
 
@@ -21,7 +23,14 @@ public class Desafio {
 
             // Adiciona o controlador à lista de observadores
             // das ações de teclado detectadas pela janela.
-            frame.addKeyListener(controller);
+
+
+            Player player = model.getWinner();
+
+            if (player == null) {
+                frame.addKeyListener(controller);
+
+            }
 
             // Configura a janela para encerrar o programa quando for fechada.
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
