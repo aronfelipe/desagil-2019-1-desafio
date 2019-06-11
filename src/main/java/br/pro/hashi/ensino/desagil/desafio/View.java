@@ -1,9 +1,6 @@
 package br.pro.hashi.ensino.desagil.desafio;
 
-import br.pro.hashi.ensino.desagil.desafio.model.Board;
-import br.pro.hashi.ensino.desagil.desafio.model.Element;
-import br.pro.hashi.ensino.desagil.desafio.model.Model;
-import br.pro.hashi.ensino.desagil.desafio.model.Player;
+import br.pro.hashi.ensino.desagil.desafio.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -77,8 +74,27 @@ public class View extends JPanel {
         Player player = model.getWinner();
 
         if (player != null) {
-            g.setColor(Color.BLUE);
-            g.drawString(player.toString(), 50, 70);
+            Font myFont = new Font ("Courier New", 1, 25);
+
+
+            boolean a = player instanceof CpuPlayer;
+            boolean b = player instanceof HumanPlayer;
+
+            if (a) {
+                g.setFont (myFont);
+                g.setColor(Color.BLUE);
+                g.drawString("CPU PLAYER WINS", 300, 200);
+
+            }
+
+            if (b) {
+                g.setFont (myFont);
+                g.setColor(Color.RED);
+                g.drawString("HUMAN PLAYER WINS", 300, 200);
+            }
+
+
+
         }
 
 

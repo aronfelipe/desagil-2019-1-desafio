@@ -31,22 +31,36 @@ public class Controller implements KeyListener, ActionListener {
     public void keyPressed(KeyEvent event) {
         HumanPlayer humanPlayer = model.getHumanPlayer();
 
+        Player player = model.getWinner();
+
         // Para agir de acordo com a tecla que foi pressionada, comparamos o key code do evento com as
         // constantes disponíveis na classe KeyEvent. Uma lista dessas constantes pode ser vista em
         // https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/event/KeyEvent.html.
         switch (event.getKeyCode()) {
             case KeyEvent.VK_UP:
-                humanPlayer.moveUp();
-                break;
+                if(player == null) {
+                    humanPlayer.moveUp();
+                    break;
+                }
+
             case KeyEvent.VK_RIGHT:
-                humanPlayer.moveRight();
-                break;
+                if(player == null) {
+                    humanPlayer.moveRight();
+                    break;
+                }
+
             case KeyEvent.VK_DOWN:
-                humanPlayer.moveDown();
-                break;
+                if(player == null) {
+                    humanPlayer.moveDown();
+                    break;
+                }
+
             case KeyEvent.VK_LEFT:
-                humanPlayer.moveLeft();
-                break;
+                if(player == null) {
+                    humanPlayer.moveLeft();
+                    break;
+                }
+
         }
 
         view.repaint();
