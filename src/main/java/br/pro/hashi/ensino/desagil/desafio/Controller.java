@@ -1,8 +1,6 @@
 package br.pro.hashi.ensino.desagil.desafio;
 
-import br.pro.hashi.ensino.desagil.desafio.model.CpuPlayer;
-import br.pro.hashi.ensino.desagil.desafio.model.HumanPlayer;
-import br.pro.hashi.ensino.desagil.desafio.model.Model;
+import br.pro.hashi.ensino.desagil.desafio.model.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,19 +33,31 @@ public class Controller implements KeyListener, ActionListener {
         // Para agir de acordo com a tecla que foi pressionada, comparamos o key code do evento com as
         // constantes disponíveis na classe KeyEvent. Uma lista dessas constantes pode ser vista em
         // https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/event/KeyEvent.html.
+
+        Player player = model.getWinner();
+
         switch (event.getKeyCode()) {
             case KeyEvent.VK_UP:
-                humanPlayer.moveUp();
-                break;
+                if (player == null) {
+                    humanPlayer.moveUp();
+                    break;
+                }
+
             case KeyEvent.VK_RIGHT:
-                humanPlayer.moveRight();
-                break;
+                if (player == null) {
+                    humanPlayer.moveRight();
+                    break;
+                }
             case KeyEvent.VK_DOWN:
-                humanPlayer.moveDown();
-                break;
+                if (player == null) {
+                    humanPlayer.moveDown();
+                    break;
+                }
             case KeyEvent.VK_LEFT:
-                humanPlayer.moveLeft();
-                break;
+                if (player == null) {
+                    humanPlayer.moveLeft();
+                    break;
+                }
         }
 
         view.repaint();
@@ -65,8 +75,35 @@ public class Controller implements KeyListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         CpuPlayer cpuPlayer = model.getCpuPlayer();
+        HumanPlayer humanPlayer = model.getHumanPlayer();
+        Element element = model.getTarget();
 
-        cpuPlayer.move();
+        int humanRow = humanPlayer.getRow();
+        int humanCol = humanPlayer.getCol();
+
+        int cpuRow = cpuPlayer.getRow();
+        int cpuCol = cpuPlayer.getCol();
+
+        int elemRow = element.getRow();
+        int elemCol = element.getCol();
+
+        if (humanRow == elemRow){
+            if (humanCol == elemCol){
+                model.setWinner(humanPlayer);
+            }
+        }
+
+        if (cpuRow == elemRow){
+            if (cpuCol == elemCol){
+                model.setWinner(cpuPlayer);
+            }
+        }
+
+        Player player = model.getWinner();
+
+        if (player == null){
+            cpuPlayer.move();
+        }
 
         view.repaint();
     }

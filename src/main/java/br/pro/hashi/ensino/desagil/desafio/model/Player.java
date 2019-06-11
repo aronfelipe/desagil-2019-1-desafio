@@ -12,4 +12,5 @@ public abstract class Player extends Element {
         row += rowShift;
         col += colShift;
     }
+
 }

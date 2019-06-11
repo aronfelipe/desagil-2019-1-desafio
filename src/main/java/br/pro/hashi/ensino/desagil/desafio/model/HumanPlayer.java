@@ -28,4 +28,5 @@ public class HumanPlayer extends Player {
             move(0, -1);
         }
     }
+
 }
